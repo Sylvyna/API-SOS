@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import csv
+import concurrent.futures
 
 
 def Login_usuario(Credenciales:str = "Login.json"):
@@ -53,8 +54,8 @@ def Login_Cuit():
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames , delimiter='|')
     writer.writeheader()
 
-    # por cada 'id' en 'cuits' del response se obtiene el bearer token
-    for i in ResponseLogin['cuits']:
+
+    def fetch_token(i):
       payload = ""
       id = i['id']
       cuit = i['cuit']
@@ -73,7 +74,15 @@ def Login_Cuit():
         json.dump(response.json(), f)
       
       # Escribir los datos en el archivo CSV
-      writer.writerow({'id': id, 'cuit': cuit, 'razon_social': razon_social , 'jwt':response.json()['jwt']})
+      return {'id': id, 'cuit': cuit, 'razon_social': razon_social , 'jwt': response.json()['jwt']}
+
+    # por cada 'id' en 'cuits' del response se obtiene el bearer token concurrentemente
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+      results = list(executor.map(fetch_token, ResponseLogin['cuits']))
+
+    # Escribir los datos en el archivo CSV
+    for result in results:
+      writer.writerow(result)
 
 
 if __name__=="__main__":
