@@ -73,7 +73,7 @@ def Login_Cuit():
         json.dump(response.json(), f)
       
       # Escribir los datos en el archivo CSV
-      writer.writerow({'id': id, 'cuit': cuit, 'razon_social': razon_social , 'jwt':Authorization})
+      writer.writerow({'id': id, 'cuit': cuit, 'razon_social': razon_social , 'jwt':response.json()['jwt']})
 
 
 if __name__=="__main__":
