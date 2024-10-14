@@ -3,9 +3,10 @@ import json
 import os
 import csv
 import concurrent.futures
+import datetime
 
 
-def Login_usuario(Credenciales:str = "Login.json"):
+def login_usuario(credenciales:str = "Login.json"):
   '''
   Funcion para realizar el login en la API de SOS-Contador y obtener el token de acceso a la API
 
@@ -13,10 +14,8 @@ def Login_usuario(Credenciales:str = "Login.json"):
   # Pagina de login de la API
   url = "https://api.sos-contador.com/api-comunidad/login"
 
-  Credentials = rf"{Credenciales}"
-
   # Cargar el archivo JSON con las credenciales
-  payload = json.dumps(json.load(open(Credentials)))
+  payload = json.dumps(json.load(open(rf"{credenciales}")))
 
  # Crear el encabezado de la peticion
   headers = {'Content-Type' : 'application/json'}
@@ -26,12 +25,12 @@ def Login_usuario(Credenciales:str = "Login.json"):
 
   # Exportar el resultado a un archivo JSON
   with open('response.json', 'w') as f:
-    json.dump(response.json(), f)
+    json.dump(response.json(), f, indent=4)
 
   return response.json(), response.json()['jwt'] , payload , headers
 
 
-def Login_Cuit():
+def login_cuit():
   '''
   Funcion para obtener los bearer token de la API de SOS-Contador por cada contribuyente
 
@@ -44,13 +43,17 @@ def Login_Cuit():
     os.makedirs('Token')
 
   # Se obtiene el response del login, el jwt y el payload
-  ResponseLogin, jwt, payload , header = Login_usuario()
+  ResponseLogin, jwt, payload , header = login_usuario()
 
   url = 'https://api.sos-contador.com/api-comunidad/cuit/credentials/'
+  
+  # Obter el mes y año del período anterior
+  mes_anterior = (datetime.datetime.now() - datetime.timedelta(days=30)).month
+  año_anterior = (datetime.datetime.now() - datetime.timedelta(days=30)).year
 
   # Abrir el archivo CSV para escribir los datos
   with open('contribuyentes.csv', 'w', newline='') as csvfile:
-    fieldnames = ['id', 'cuit', 'razon_social', 'jwt']
+    fieldnames = ['id', 'cuit', 'razon_social', 'año', 'mes', 'F2002', 'jwt']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames , delimiter='|')
     writer.writeheader()
 
@@ -71,10 +74,10 @@ def Login_Cuit():
       
       # Exportar el resultado a un archivo JSON por cada contribuyente
       with open(f'Token/response_{cuit}_{id}_{razon_social}.json', 'w') as f:
-        json.dump(response.json(), f)
+        json.dump(response.json(), f, indent=4)
       
       # Escribir los datos en el archivo CSV
-      return {'id': id, 'cuit': cuit, 'razon_social': razon_social , 'jwt': response.json()['jwt']}
+      return {'id': id, 'cuit': cuit, 'razon_social': razon_social, 'año': año_anterior, 'mes': mes_anterior, 'F2002': 'SI', 'jwt': response.json()['jwt']}
 
     # por cada 'id' en 'cuits' del response se obtiene el bearer token concurrentemente
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -111,7 +114,7 @@ def consulta_f2002():
           os.makedirs('F2002')
       
         with open(f'F2002/F2002_{cuit}_{razon_social}_{año}_{mes}.json', 'w') as f:
-          json.dump(response.json(), f)
+          json.dump(response.json(), f, indent=4)
 
     # Ejecutar las consultas de forma concurrente
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -119,5 +122,5 @@ def consulta_f2002():
 
 
 if __name__=="__main__":
-  # Login_Cuit()
+  login_cuit()
   consulta_f2002()
