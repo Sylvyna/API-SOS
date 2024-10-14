@@ -83,7 +83,38 @@ def Login_Cuit():
     # Escribir los datos en el archivo CSV
     for result in results:
       writer.writerow(result)
+      
+def consulta_f2002():
+  
+  # Abrir el csv de "contribuyentes.csv" que posee los datos necesarios para hacer la consulta ("cuit"|"razon_social"|"jwt"|"año"|"mes"|"F2002")
+  
+  url = "https://api.sos-contador.com/api-comunidad/iva/listado/:ejercicio?anio=AAAA&mes=MM"
+  
+  archivo = "contribuyentes.csv"
+  with open(archivo, 'r') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter='|')
+    for row in reader:
+      if row['F2002'] == 'SI':
+        cuit = row['cuit']
+        razon_social = row['razon_social']
+        jwt = row['jwt']
+        año = row['año']
+        mes = row['mes']
+        url = url.replace('AAAA', año)
+        url = url.replace('MM', mes)
+        header = {'Content-Type': 'application/json'}
+        Authorization = jwt
+        header['Authorization'] = f"Bearer {Authorization}"
+        response = requests.request("GET", url, headers=header)
+        
+        # se crea la carpeta F2002 si no existe
+        if not os.path.exists('F2002'):
+          os.makedirs('F2002')
+    
+        with open(f'F2002/F2002_{cuit}_{razon_social}_{año}_{mes}.json', 'w') as f:
+          json.dump(response.json(), f)
 
 
 if __name__=="__main__":
-  Login_Cuit()
+  # Login_Cuit()
+  consulta_f2002()
