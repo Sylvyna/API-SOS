@@ -43,7 +43,7 @@ def login_cuit():
     os.makedirs('Token')
 
   # Se obtiene el response del login, el jwt y el payload
-  ResponseLogin, jwt, payload , header = login_usuario()
+  responseLogin, jwt, payload , header = login_usuario()
 
   url = 'https://api.sos-contador.com/api-comunidad/cuit/credentials/'
   
@@ -66,8 +66,7 @@ def login_cuit():
 
       url2 = url + str(id)
       header = {'Content-Type': 'application/json'}
-      Authorization = jwt
-      header['Authorization'] = f"Bearer {Authorization}"
+      header['Authorization'] = f"Bearer {jwt}"
 
       # Se realiza la peticion GET
       response = requests.request("GET", url2, headers=header, data=payload)
@@ -81,7 +80,7 @@ def login_cuit():
 
     # por cada 'id' en 'cuits' del response se obtiene el bearer token concurrentemente
     with concurrent.futures.ThreadPoolExecutor() as executor:
-      results = list(executor.map(fetch_token, ResponseLogin['cuits']))
+      results = list(executor.map(fetch_token, responseLogin['cuits']))
 
     # Escribir los datos en el archivo CSV
     for result in results:
@@ -105,8 +104,7 @@ def consulta_f2002():
         mes = row['mes']
         url_f2002 = url.replace('AAAA', año).replace('MM', mes)
         header = {'Content-Type': 'application/json'}
-        Authorization = jwt
-        header['Authorization'] = f"Bearer {Authorization}"
+        header['Authorization'] = f"Bearer {jwt}"
         response = requests.request("GET", url_f2002, headers=header)
         
         # se crea la carpeta F2002 si no existe
