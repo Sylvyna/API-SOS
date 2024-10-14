@@ -93,26 +93,29 @@ def consulta_f2002():
   archivo = "contribuyentes.csv"
   with open(archivo, 'r') as csvfile:
     reader = csv.DictReader(csvfile, delimiter='|')
-    for row in reader:
+    def fetch_f2002(row):
       if row['F2002'] == 'SI':
         cuit = row['cuit']
         razon_social = row['razon_social']
         jwt = row['jwt']
         año = row['año']
         mes = row['mes']
-        url = url.replace('AAAA', año)
-        url = url.replace('MM', mes)
+        url_f2002 = url.replace('AAAA', año).replace('MM', mes)
         header = {'Content-Type': 'application/json'}
         Authorization = jwt
         header['Authorization'] = f"Bearer {Authorization}"
-        response = requests.request("GET", url, headers=header)
+        response = requests.request("GET", url_f2002, headers=header)
         
         # se crea la carpeta F2002 si no existe
         if not os.path.exists('F2002'):
           os.makedirs('F2002')
-    
+      
         with open(f'F2002/F2002_{cuit}_{razon_social}_{año}_{mes}.json', 'w') as f:
           json.dump(response.json(), f)
+
+    # Ejecutar las consultas de forma concurrente
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+      executor.map(fetch_f2002, reader)
 
 
 if __name__=="__main__":
