@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">Descarga de Papeles de Tabajo</setting>
+      <setting id="description">Dscarga de Papeles de Trabajo del SOS-Contador</setting>
+      <setting id="module_name">GUI</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">Toplevel_1</setting>
+      <setting id="main_classname">GUI_app</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">..\Desktop\API-SOS-público</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">True</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="Toplevel_1">
+    <property name="background">#2e2e2e</property>
+    <property name="cursor">arrow</property>
+    <property name="height">250</property>
+    <property name="iconbitmap">ABP-blanco-en-fondo-negro.ico</property>
+    <property name="minsize">340|500</property>
+    <property name="overrideredirect">False</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Descarga Papeles de Tabajo SOS</property>
+    <property name="width">500</property>
+    <child>
+      <object class="ttk.Label" id="Label_3">
+        <property name="background">#2e2e2e</property>
+        <property name="compound">bottom</property>
+        <property name="font">TkFixedFont</property>
+        <property name="image">ABP blanco en fondo negro111.png</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_1">
+        <property name="background">#2e2e2e</property>
+        <property name="compound">top</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="foreground">#ffffff</property>
+        <property name="justify">center</property>
+        <property name="relief">flat</property>
+        <property name="state">normal</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Descarga masiva de Papeles de Trabajo de IVA para la realización del F2002
+</property>
+        <property name="wraplength">325</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_2">
+        <property name="background">#2e2e2e</property>
+        <property name="foreground">#ffffff</property>
+        <property name="justify">center</property>
+        <property name="text" translatable="yes">por Agustín Bustos Piasentini
+https://www.Agustin-Bustos-Piasentini.com.ar/</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Credenciales" named="True">
+        <property name="text" translatable="yes">Abrir Credenciales</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="pady">4</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Obtener_Tokens" named="True">
+        <property name="text" translatable="yes">Obtener Tokens de Acceso</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="padx">0</property>
+          <property name="pady">4</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Editar_CSV" named="True">
+        <property name="text" translatable="yes">Editar CSV</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="pady">4</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Descarga_PT" named="True">
+        <property name="text" translatable="yes">Descarga Masiva de Papeles de Trabajo</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="pady">4</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Donaciones" named="True">
+        <property name="text" translatable="yes">Donaciones</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label1">
+        <property name="background">#2e2e2e</property>
+        <property name="image">sos-contador_150x78.png</property>
+        <property name="text" translatable="yes">label1</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
