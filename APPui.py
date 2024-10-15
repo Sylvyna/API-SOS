@@ -84,7 +84,7 @@ class GUI_appUI:
         self.Abrir_Carpeta_Resultados.pack(expand=True, pady=4, side="top")
         self.Donaciones = ttk.Button(Toplevel_1, name="donaciones")
         self.Donaciones.configure(text='Donaciones', command=cafecito)
-        self.Donaciones.pack(side="top")
+        self.Donaciones.pack(side="top", pady=4)
         label1 = ttk.Label(Toplevel_1)
         self.img_soscontador_150x78 = tk.PhotoImage(
             file="bin/sos-contador_-small.png")
