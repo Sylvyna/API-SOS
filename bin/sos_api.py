@@ -4,6 +4,7 @@ import os
 import csv
 import concurrent.futures
 import datetime
+from tkinter.messagebox import showinfo
 
 
 def login_usuario(credenciales:str = "bin/Login.json"):
@@ -117,6 +118,8 @@ def consulta_f2002():
     # Ejecutar las consultas de forma concurrente
     with concurrent.futures.ThreadPoolExecutor() as executor:
       executor.map(fetch_f2002, reader)
+      
+  showinfo(title="Terminado" , message="Papeles de trabajo descargados en la carpeta F2002")
 
 
 if __name__=="__main__":
