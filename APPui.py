@@ -13,7 +13,7 @@ def abrir_credenciales():
 
 
 def abrir_csv():
-    os.startfile("./contribuyentes.csv")
+    os.startfile("contribuyentes.csv")
 
 
 def abrir_carpeta_resultados():
