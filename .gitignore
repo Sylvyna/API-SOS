@@ -4,3 +4,5 @@ Token
 contribuyentes.csv
 response.json
 F2002
+__pycache__
+bin/__pycache__
