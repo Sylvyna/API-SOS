@@ -87,6 +87,8 @@ def login_cuit():
     for result in results:
       writer.writerow(result)
       
+  showinfo(title="Termimando", message="Credenciales Obtenidas")
+      
 def consulta_f2002():
   
   # Abrir el csv de "contribuyentes.csv" que posee los datos necesarios para hacer la consulta ("cuit"|"razon_social"|"jwt"|"año"|"mes"|"F2002")

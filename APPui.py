@@ -13,7 +13,11 @@ def abrir_credenciales():
 
 
 def abrir_csv():
-        os.startfile(r".\contribuyentes.csv")
+    os.startfile("./contribuyentes.csv")
+
+
+def abrir_carpeta_resultados():
+    os.system(r'explorer ".\F2002"')
 
 
 class GUI_appUI:
@@ -74,6 +78,10 @@ class GUI_appUI:
         self.Descarga_PT.configure(
             text='Descarga Masiva de Papeles de Trabajo')
         self.Descarga_PT.pack(expand=True, pady=4, side="top")
+        self.Abrir_Carpeta_Resultados = ttk.Button(Toplevel_1, name="abrir_carpeta_resultados")
+        self.Abrir_Carpeta_Resultados.configure(
+            text='Abrir Carpeta F2002', command=abrir_carpeta_resultados)
+        self.Abrir_Carpeta_Resultados.pack(expand=True, pady=4, side="top")
         self.Donaciones = ttk.Button(Toplevel_1, name="donaciones")
         self.Donaciones.configure(text='Donaciones', command=cafecito)
         self.Donaciones.pack(side="top")
