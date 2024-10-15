@@ -6,7 +6,7 @@ import concurrent.futures
 import datetime
 
 
-def login_usuario(credenciales:str = "Login.json"):
+def login_usuario(credenciales:str = "bin/Login.json"):
   '''
   Funcion para realizar el login en la API de SOS-Contador y obtener el token de acceso a la API
 
